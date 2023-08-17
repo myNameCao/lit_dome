@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* 样式可以根据需要进行自定义 */
+    .item {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border: 1px solid #999;
+      border-radius: 5px;
+    }
+    .item_1{
+
+    }
+  </style>
+</head>
+<body>
+  <div class="item  item_1" id="item_left">左侧元素</div>
+  <div class="item" id="item_right">右侧元素</div>
+  <script src="https://cdn.bootcss.com/jsPlumb/2.6.8/js/jsplumb.min.js"></script>
+  <script>
+    jsPlumb.ready(function () {
+      jsPlumb.connect({
+        source: 'item_left',
+        target: 'item_right',
+        anchors: ['Right', 'Left'],
+        paintStyle: { stroke: '#ccc', strokeWidth: 2 },
+        endpoint: 'Blank'
+      });
+    });
+  </script>
+</body>
+</html>
