@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    /* 样式可以根据需要进行自定义 */
-    .item {
-      width: 100px;
-      height: 100px;
-      background-color: #ccc;
-      border: 1px solid #999;
-      border-radius: 5px;
-    }
-    .item_1{
-
-    }
-  </style>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./reset.css">
 </head>
 <body>
-  <div class="item  item_1" id="item_left">左侧元素</div>
-  <div class="item" id="item_right">右侧元素</div>
-  <script src="https://cdn.bootcss.com/jsPlumb/2.6.8/js/jsplumb.min.js"></script>
+  <div class="content_view">
+    <div class="item  item_left" id="item_left"></div>
+    <div class="item  item_mid ">
+      <xy-training id="mid_view"></xy-training>
+    </div>
+    <div class="item  item_rigth  ">
+      <xy-preview  id="right_view"></xy-preview> 
+    </div>
+  </div>
+  <script src="./lib/jsplumb.js"></script>
   <script>
     jsPlumb.ready(function () {
-      jsPlumb.connect({
-        source: 'item_left',
-        target: 'item_right',
+      // jsPlumb.connect({
+      //   source:  'item_top',
+      //   target: 'item_right',
+      //   anchors: ['Right', 'Left'],
+      //   paintStyle: { stroke: '#ccc', strokeWidth: 2 },
+      //   endpoint: 'Blank'
+      // });
+      var connection = jsPlumb.connect({
+        source:  'mid_view',
+        target: 'right_view',
         anchors: ['Right', 'Left'],
+        connector: 'Straight',
         paintStyle: { stroke: '#ccc', strokeWidth: 2 },
         endpoint: 'Blank'
       });
+      window.addEventListener('resize', jsPlumb.repaintEverything);
+     
     });
   </script>
+   <script type="module" src="./training.js"></script>
+   <script type="module" src="./preview.js"></script>
+
 </body>
 </html>
