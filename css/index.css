@@ -3,6 +3,7 @@ html,body{
   height: 100%;
   background-color: #E8EAED;
   overflow: auto;
+  font-family: 'Google Sans', Helvetica, Arial, sans-serif;
 
   
 }
@@ -32,6 +33,22 @@ html,body{
   width: 300px;
 }
 
+
+.add-classes{
+  height: 80px;
+  border-radius: 8px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 18px;
+  border: 2px dashed #a9a9a9;
+  border-spacing: 50px;
+  color:#5F6368;
+  cursor: pointer;
+}
+.add-classes:hover {
+  color: #1967D2;
+  border-color: #1967D2;
+}
 
 
 /*  整体布局 end */
