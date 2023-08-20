@@ -73,10 +73,10 @@ class classItem extends LitElement {
     this.requestUpdate();
   }
   del(){
-    let {id} = this.message;
+    let message = this.message;
     this.dispatchEvent(new CustomEvent('delItem', {
       composed: true, // 允许跨 Shadow DOM 边界触发事件
-      detail:id
+      detail:message
        }));
   }
   render() {

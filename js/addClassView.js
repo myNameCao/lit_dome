@@ -10,6 +10,7 @@ let common ={
   endpoint: 'Blank'
 }
 const targetElement = document.getElementById('mid_view');
+const right_view = document.getElementById('right_view');
 class Preview extends LitElement {
   static styles = css`
            .add-classes{
@@ -41,23 +42,43 @@ class Preview extends LitElement {
     super.connectedCallback();
     this.updateComplete.then(() => {
       const sourceElement = this.shadowRoot.querySelector('#item_1');
-
-      jsPlumb.connect({
-        source: sourceElement,
-        target: targetElement,
-      },common);
+      jsPlumb.ready(()=>{
+        let connection= jsPlumb.connect({
+          source: sourceElement,
+          target: targetElement,
+        },common);
+        this.classList[0].connection = connection;
+      })
     });
  
   }
- 
   delItem(item){
-    this.classList = this.classList.filter((e) => e.id != item.detail);
+    let {connection,id} = item.detail;
+    let connections = jsPlumb.getConnections({  target: 'mid_view' });
+    console.log(connections);
+    jsPlumb.deleteEveryEndpoint();
+    this.classList = this.classList.filter((e) => e.id != id);
     this.requestUpdate();
+    this.updateComplete.then(() => {
+        this.classList.forEach((item) => {
+            item.connection = jsPlumb.connect({
+              source: this.shadowRoot.querySelector('#'+item.id),
+              target: targetElement,  
+            },common);
+        })
+
+        item.connection = jsPlumb.connect({
+          source: targetElement,
+          target: right_view,  
+        },Object.assign({},common,{connector: 'Straight'}));
+      
+    })
   }
   addItme(){
-    let id = this.classList.length + 1;
+    let id =new Date().getTime();
+    let value = this.classList.length+1;
     let  item=  {
-      name: `Class ${id}`,
+      name: `Class ${value}`,
       id: 'item_'+id,
       edite:false
     }
@@ -66,11 +87,11 @@ class Preview extends LitElement {
     this.updateComplete.then(() => {
       jsPlumb.repaintEverything();
       const sourceElement = this.shadowRoot.querySelector('#'+item.id);
-      jsPlumb.connect({
+      item.connectio=jsPlumb.connect({
         source: sourceElement,
         target: targetElement,
       },common);
-     
+
     });
 
     
