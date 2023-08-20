@@ -15,9 +15,7 @@ class Training extends LitElement {
     font-weight: bold;
     line-height: 50px;
     text-indent: 20px;
-   
   }
-
   .adv{
     height: 60px;
     line-height: 60px;

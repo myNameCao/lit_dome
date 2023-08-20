@@ -4,8 +4,6 @@ html,body{
   background-color: #E8EAED;
   overflow: auto;
   font-family: 'Google Sans', Helvetica, Arial, sans-serif;
-
-  
 }
 
 .content_view{
@@ -15,24 +13,29 @@ html,body{
 }
 
 .item{
-  display: flex;
-  justify-content:center ;
-  flex-direction: column;
   margin-left: 60px;
   width: 220px;
   height: 100vh;
   box-sizing: border-box;
 }
-
 .item_left{
   width: 590px;
+  padding: 30px 0;
+  box-sizing: border-box;
 }
+
 
 .item_rigth{
-  
   width: 300px;
 }
+.content{
+  display: flex;
+  justify-content:center ;
+  flex-direction: column;
+  overflow: visible;
+  min-height: 100%;
 
+}
 
 .add-classes{
   height: 80px;

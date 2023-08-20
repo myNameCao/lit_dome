@@ -1,8 +1,15 @@
 // LitElement and html are the basic required imports
 
 import {LitElement, html,css} from '../lib/lit-core.js';
+import './classItem.js';
 
-
+let common ={
+  paintStyle: { stroke: '#ccc', strokeWidth: 2 },
+  anchors: ['Right', 'Left'],
+  connector: ['Bezier', { curviness: 30 }],
+  endpoint: 'Blank'
+}
+const targetElement = document.getElementById('mid_view');
 class Preview extends LitElement {
   static styles = css`
            .add-classes{
@@ -21,18 +28,66 @@ class Preview extends LitElement {
               border-color: #1967D2;
           }
         `;
+  static properties = {
+    classList: { type: Array },
+  };
+ 
+  constructor() {
+    super(); this.addEventListener('delItem', this.delItem);
+    this.classList = [{name: 'Class 1', id: 'item_1',edite:false }];
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.updateComplete.then(() => {
+      const sourceElement = this.shadowRoot.querySelector('#item_1');
+
+      jsPlumb.connect({
+        source: sourceElement,
+        target: targetElement,
+      },common);
+    });
+ 
+  }
+ 
+  delItem(item){
+    this.classList = this.classList.filter((e) => e.id != item.detail);
+    this.requestUpdate();
+  }
+  addItme(){
+    let id = this.classList.length + 1;
+    let  item=  {
+      name: `Class ${id}`,
+      id: 'item_'+id,
+      edite:false
+    }
+    this.classList.push(item);
+    this.requestUpdate(); 
+    this.updateComplete.then(() => {
+      jsPlumb.repaintEverything();
+      const sourceElement = this.shadowRoot.querySelector('#'+item.id);
+      jsPlumb.connect({
+        source: sourceElement,
+        target: targetElement,
+      },common);
+     
+    });
+
+    
+    
+    
+  }
+ 
   render() {
     return html`
-      <div class='class_view'> 
-        <xy-classitem></xy-classitem>
-        <div  class='add-classes'>
+      <div class='class_view' > 
+        ${this.classList.map((item) => html`<xy-classitem id=${item.id} .message=${item}></xy-classitem>`)}
+        <div  class='add-classes' @click=${this.addItme}>
           <svg style="margin-right: 5px;" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9961 0.25H2.33376C1.48838 0.25 0.810562 0.925 0.810562 1.75V12.25C0.810562 13.075 1.48838 13.75 2.33376 13.75H12.9961C13.8339 13.75 14.5193 13.075 14.5193 12.25V1.75C14.5193 0.925 13.8339 0.25 12.9961 0.25ZM12.9961 12.25H2.33376V1.75H12.9961V12.25ZM8.42654 10.75H6.90335V7.75H3.85695V6.25H6.90335V3.25H8.42654V6.25H11.4729V7.75H8.42654V10.75Z" fill="#80868B"></path>
           </svg>
             Add a class
         </div>
-         
-         
       </div>
     `;
   }
