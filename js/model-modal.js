@@ -1,6 +1,6 @@
 
 import {LitElement, html,css} from '../lib/lit-core.js';
-import './tm-snippet.js'
+import '../webComponts/tm-snippet.js'
 
 class infoIcon extends LitElement {
 
