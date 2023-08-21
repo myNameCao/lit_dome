@@ -2,6 +2,8 @@
 
 import {LitElement, html,css} from '../lib/lit-core.js';
 
+import  './model-modal.js';
+
 class Preview extends LitElement {
 
   static styles = css`
@@ -29,6 +31,11 @@ class Preview extends LitElement {
               font-weight: 500;
               color:#5F6368;
               background-color:#f1f3f4;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+            .topName span:hover{
+              background-color:#D2E3FC;
             }
             .action-btn-icon{
               margin-right: 5px;
@@ -44,7 +51,8 @@ class Preview extends LitElement {
         `;
   render() {
     return html`
-      <div class='mid_view'> 
+      <div class='mid_view'>
+        <model-modal></model-modal>
         <div>
           <div class='topName'>
             Preview

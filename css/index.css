@@ -2,8 +2,10 @@ html,body{
   width: 100%;
   height: 100%;
   background-color: #E8EAED;
+  letter-spacing: 0.3px;
   overflow: auto;
   font-family: 'Google Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 .content_view{
