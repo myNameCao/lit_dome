@@ -34,7 +34,8 @@ class Preview extends LitElement {
   };
  
   constructor() {
-    super(); this.addEventListener('delItem', this.delItem);
+    super();
+    this.addEventListener('delItem', this.delItem);
     this.classList = [{name: 'Class 1', id: 'item_1',edite:false }];
   }
 
