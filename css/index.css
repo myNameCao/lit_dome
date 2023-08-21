@@ -9,7 +9,7 @@ html,body{
 }
 
 .content_view{
-  min-width: 1100px;
+  min-width: 1300px;
   display: flex;
   justify-content:center ;
 }

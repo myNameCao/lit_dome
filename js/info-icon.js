@@ -12,6 +12,7 @@ class infoIcon extends LitElement {
       margin-left: 10px;
       cursor: pointer;
       overflow: visible;
+      position: relative;
       
     }
 
@@ -23,6 +24,7 @@ class infoIcon extends LitElement {
     .tooptip{
       display: none;
        width: 300px;
+       position: absolute;
        padding: 20px 30px 10px 20px;
        box-sizing: border-box;
        background: #272727;

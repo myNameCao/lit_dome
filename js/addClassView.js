@@ -95,9 +95,6 @@ class Preview extends LitElement {
 
     });
 
-    
-    
-    
   }
  
   render() {

@@ -54,9 +54,19 @@ class Training extends LitElement {
   }
 
  .adv span{
-  float: right;
+    float: right;
+  width: 20px;
+  height: 20px;
   margin-right:15px;
+  margin-top: 20px;
+  
  }
+
+ .adv span svg{
+  width: 20px;
+  height: 20px;
+  float: right;
+  }
 
   .tr_model{
     height: 50px;
@@ -241,7 +251,7 @@ resetdefaults(){
         </div>
         <div class=${this.showSeting?'adv adv_active': 'adv'}  @click=${this.setSeting}>
           Advanced
-          <span>
+          <span style=${this.showSeting?'transform: rotate(180deg);':''}>
             <svg id="down-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
                 <path  fill=${this.showSeting?'#1967D2':'#9AA0A6'}  d="M1.41 0.590088L0 2.00009L8 10.0001L16 2.00009L14.59 0.590088L8 7.170093"></path>
             </svg>
