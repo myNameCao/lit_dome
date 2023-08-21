@@ -1,5 +1,6 @@
 
 import {LitElement, html,css} from '../lib/lit-core.js';
+import './tm-snippet.js'
 
 class infoIcon extends LitElement {
 
@@ -9,7 +10,21 @@ class infoIcon extends LitElement {
   }
   constructor(){
     super();
-    this.host = 'Upload';
+    this.host = 'cloud';
+  }
+
+  close(){
+    const event = new CustomEvent('closeDiloag', {
+      bubbles: true, // 允许事件冒泡到父级组件
+      composed: true, // 允许事件穿越 Shadow DOM 边界
+    });
+
+    this.dispatchEvent(event);
+  }
+
+  handleChange(event) {
+    const selectedOption = event.target.value; // 获取单选按钮的值
+    this.host = selectedOption;
   }
   render() {
 
@@ -22,8 +37,11 @@ class infoIcon extends LitElement {
                         left: 0;
                         width: 100%;
                         height: 100%;
+                        box-sizing: border-box;
                         background-color: rgba(0,0,0,0.3);
                         z-index: 99998;
+                        overflow: auto;
+                        padding:30px;
                     }
                     .contetn{
                       position: absolute;
@@ -252,6 +270,12 @@ class infoIcon extends LitElement {
                     text-align: center;
                     cursor: pointer;
                 }
+
+                .code-snippet-holder{
+                  margin-top: 2px;
+                  padding-bottom: 20px;
+
+                }
                                             
 
                 </style>
@@ -259,7 +283,7 @@ class infoIcon extends LitElement {
                   <div class="contetn">
                       <div class="modal-header">
                         <div class="modal-title"><!---->Export your model to use it in projects.<!----></div>
-                        <span class="modal-close-btn">
+                        <span class="modal-close-btn"  @click=${this.close}>
                             <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"></path>
                             </svg>
@@ -280,16 +304,16 @@ class infoIcon extends LitElement {
                         <p><!---->Export your model:<!----></p>
                         <div id="host-option-holder">
                                 <label class="radio-container">
-                                    <input type="radio" name="host" value="cloud">
+                                    <input type="radio" name="host" value="cloud" checked="" @change=${this.handleChange}>
                                     <span><!---->Upload (shareable link)<!----></span>
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">
-                                    <input type="radio" name="host" value="local" checked="">
+                                    <input type="radio" name="host" value="local"  @change=${this.handleChange}>
                                     <span><!---->Download<!----></span>
                                     <span class="checkmark"></span>
                                 </label>
-                                ${this.host == 'Upload' ? html`
+                                ${this.host == 'cloud' ? html`
                                  <button class='action_btn'>
                                  <svg class="action-btn-icon" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M13.9337 4.35008C13.542 1.98342 11.4753 0.166748 9.00033 0.166748C7.18366 0.166748 5.52533 1.15008 4.65033 2.71675C2.40866 3.00841 0.666992 4.95008 0.666992 7.25008C0.666992 9.77508 2.72533 11.8334 5.25033 11.8334H13.5837C15.6503 11.8334 17.3337 10.1501 17.3337 8.08342C17.3337 6.13342 15.842 4.52508 13.9337 4.35008ZM13.5837 10.1667H5.25033C3.64199 10.1667 2.33366 8.85841 2.33366 7.25008C2.33366 5.67508 3.61699 4.36675 5.20033 4.34175L5.73366 4.33341L5.95033 3.84175C6.47533 2.61675 7.67532 1.83341 9.00033 1.83341C10.842 1.83341 12.3337 3.32508 12.3337 5.16675V6.00008H13.5837C14.7337 6.00008 15.667 6.93341 15.667 8.08341C15.667 9.23341 14.7337 10.1667 13.5837 10.1667ZM11.917 6.41675L9.59199 4.09175L9.00033 3.50008L8.40866 4.09175L6.08366 6.41675L7.25866 7.60008L8.16699 6.69175V8.91675H9.83366V6.69175L10.742 7.59175L11.917 6.41675Z"></path>
@@ -305,6 +329,8 @@ class infoIcon extends LitElement {
                                  </button>
                                  `}
                         </div>
+
+                        ${this.host == 'cloud' ? html`
                         <p>Your sharable link:</p>
                         <div id="hosted-url" class="disabled">
                                 <span id="hosted-url-text"><!---->https://teachablemachine.withgoogle.com/models/[...]<!----></span>
@@ -312,12 +338,19 @@ class infoIcon extends LitElement {
                         <div id="export-info">
                                 When you upload your model, Teachable Machine hosts it at this link. (FAQ: <a target="_blank" href="https://teachablemachine.withgoogle.com/faq#Saving-&amp;-Exporting">Who can use my model?</a>)
                         </div>
+                        `:''}
                         <p>Code snippets to use your model:</p>
                         <ul id="code-snippet-tabs">
                                     <li class="selected">
                                         Javascript
                                     </li>
                         </ul>
+
+                        <div class='code-snippet-holder'>
+
+                         <tm-snippet></tm-snippet>
+                            
+                        </div>
                     </div>
                   </div>
                     

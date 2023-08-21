@@ -6,6 +6,15 @@ import  './model-modal.js';
 
 class Preview extends LitElement {
 
+   static properties = {
+    dilog: {type: Boolean},
+  };
+  constructor() {
+    super();
+    this.addEventListener('closeDiloag',()=>this.showDilog(false));
+    this.dilog = false;
+  }
+
   static styles = css`
             .mid_view {
               height: 150px;
@@ -14,8 +23,8 @@ class Preview extends LitElement {
           }
           .topName{
             text-indent: 20px;
-            height: 73px;
-            line-height: 73px;
+            height: 70px;
+            line-height: 70px;
             vertical-align: middle;
             font-size: 18px;
             font-weight: 500;
@@ -23,10 +32,9 @@ class Preview extends LitElement {
             border-bottom: 1px solid #e0e0e0;
             
           }
-
           .topName span{
-              margin-left: 20px;
-              padding: 10px 20px;
+              margin-left: 15px;
+              padding: 10px 28px;
               font-size: 14px;
               font-weight: 500;
               color:#5F6368;
@@ -49,12 +57,15 @@ class Preview extends LitElement {
             font-size: 15px; color: #5F6368; margin: 0;
           }
         `;
+  showDilog(status){
+    this.dilog = status;
+  }
   render() {
     return html`
       <div class='mid_view'>
-        <model-modal></model-modal>
+        ${this.dilog? html`<model-modal></model-modal>`:'' }
         <div>
-          <div class='topName'>
+          <div class='topName' @click=${()=>this.showDilog(true)}>
             Preview
             <span>
             <svg class="action-btn-icon" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
