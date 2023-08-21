@@ -1,7 +1,7 @@
 
 import {LitElement, html,css} from '../lib/lit-core.js';
 
-import './tm-copy.js';
+import '../webComponts/tm-copy.js';
 
 class snippet extends LitElement {
 

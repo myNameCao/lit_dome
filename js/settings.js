@@ -1,11 +1,11 @@
 
 import {LitElement, html,css} from '../lib/lit-core.js';
 
+import '../webComponts/tm-toggle.js'
+
 class camSettings extends LitElement {
 
   static styles = css`
-
-  
 
 :host {
                     position: relative;
