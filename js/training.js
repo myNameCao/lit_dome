@@ -81,6 +81,7 @@ class Training extends LitElement {
     position: relative;
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
   }
 
  .input-holder {
@@ -215,11 +216,21 @@ class Training extends LitElement {
 
 setSeting(){
   this.showSeting = !this.showSeting;
-  console.log(this.settingOption);
 }
 handleInput(event){
   event.target.value
 
+}
+
+
+resetdefaults(){
+
+  let input = this.shadowRoot.querySelectorAll('input');
+  let  select = this.shadowRoot.querySelectorAll('select');
+
+  input[0].value = 50;
+  input[1].value = 0.0001;
+  select[0].value =16;
 }
   render() {
     return html`
@@ -242,7 +253,7 @@ handleInput(event){
                       <span>
                            Epochs:
                           <div class="input-holder">
-                              <input type="number" min="1" maxlength="4" style="width: 54px;" max="9999" .value=${String(this.settingOption.epochs)} >
+                              <input type="number" min="1" maxlength="4" style="width: 54px;" max="9999" value=${this.settingOption.epochs} >
                           </div>
                       </span>
                       <info-icon  class='icons' >
@@ -315,7 +326,7 @@ handleInput(event){
                         </info-icon>
                     </div>
               </div>
-              <div class="setting-row ">
+              <div class="setting-row"  @click=${()=>this.resetdefaults()}>
                     <span class='text_msg'>Reset Defaults</span>
                     <span class="icons" style="height: 22px; width: 22px">
                             <svg class="sub-option-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
